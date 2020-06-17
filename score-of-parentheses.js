@@ -6,49 +6,51 @@
 // AB has score A + B, where A and B are balanced parentheses strings.
 // (A) has score 2 * A, where A is a balanced parentheses string.
 
+// const S = '()'; // 1
+// const S = "(())" // 2
+// const S = "()()" // 2
+// const S = "(()(()))"; // 6
+// const S = "((()))"; // 4
+const S = "(()())()((()))"; // 9
+
+let previous = null;
+let arr;
+let equation = '';
+
 /**
  * @param {string} S
  * @return {number}
  */
-// var S = '()'; // 1
-//  var S = "(())" // 2
-//  var S = "()()" // 2
- var S = "(()(()))" // 6
-let total = 0;
-let tmp = 0;
-let previous = null;
-let arr;
-var scoreOfParentheses = function(S) {
-   arr = S.split('');
-
+const scoreOfParentheses = function (S) {
+  arr = S.split('');
   if (arr[0] === '(') {
-    if (previous === '(') { // ((
-      tmp *= 2;
+    if (!previous) {
+      equation += '(';
+    } else if (previous === '(') { // ((
+      equation += '2*((';
     } else if (previous === ')') { // )(
-      tmp += 1;
-    } else if (!previous) { // (
-      tmp = 1; // initial paren
-    }
-  } else if (arr[0] === ')') {
-    if (previous === '(') { // ()
-      total +=tmp;
-      tmp -= 1;
-    } else if (previous === ')') { // ))
-      // do nothing
-    } else if (!previous) {
-      console.log('error');
+      equation += '+(';
     }
   }
+
+  if (arr[0] === ')') {
+    if (previous === '(') { // ()
+      equation += '1)';
+    } else if (previous === ')') { // ))
+      equation += '))';
+    }
+  }
+
   previous = arr[0];
   arr = arr.slice(1);
-  var newS = arr.join('');
-  if (newS) {
-    total = scoreOfParentheses(newS);
+  S = arr.join('');
+  if (S) {
+    equation = scoreOfParentheses(S);
   } else {
-    return total;
+    return equation;
   }
-  
-  return total;
+  return equation;
 };
 
-console.log(scoreOfParentheses(S));
+console.log('sup',eval(scoreOfParentheses(S)));
+console.log(equation);
