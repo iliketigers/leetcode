@@ -6,50 +6,34 @@
 // (A) has score 2 * A, where A is a balanced parentheses string.
 
 // const S = '()'; // 1
-// const S = "(())" // 2
+const S = '(())'; // 2
 // const S = "()()" // 2
 // const S = "(()(()))"; // 6
 // const S = "((()))"; // 4
-// const S = "(()())()((()))"; // 9
-
-let previous = null;
-let arr;
-let equation = '';
+// const S = '(()())()((()))'; // 9 =
 
 /**
  * @param {string} S
  * @return {number}
  */
 const scoreOfParentheses = function (S) {
-  arr = S.split('');
-  
-  if (arr[0] === '(') {
-    if (!previous) {
-      equation += '(';
-    } else if (previous === '(') { // ((
-      equation += '2*((';
-    } else if (previous === ')') { // )(
-      equation += '+(';
+  let equation = '';
+  const arr = S.split('');
+  let previous = '';
+  arr.forEach((element) => {
+    const firstTwo = previous + element;
+    if (firstTwo === '((') {
+      equation += '2*(';
+    } else if (firstTwo === ')(') {
+      equation += '+';
+    } else if (firstTwo === '()') {
+      equation += '1';
+    } else if (firstTwo === '))') {
+      equation += ')';
     }
-  }
-
-  if (arr[0] === ')') {
-    if (previous === '(') { // ()
-      equation += '1)';
-    } else if (previous === ')') { // ))
-      equation += '))';
-    }
-  }
-
-  previous = arr[0];
-  arr = arr.slice(1);
-  S = arr.join('');
-  if (S) {
-    equation = scoreOfParentheses(S);
-  } else {
-    return eval(equation);
-  }
+    previous = element;
+  });
   return eval(equation);
 };
 
-console.log(eval(scoreOfParentheses(S)));
+console.log((scoreOfParentheses(S)));
