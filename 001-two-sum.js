@@ -15,20 +15,15 @@
  * @param {number} target
  * @return {number[]}
  */
-var twoSum = function (nums, target) {
-  // target = 4
-  // nums = [2, 3, 4, 1]
-  // return [2, 3]
 
-  debugger;
-  const answer = [];
-  nums.forEach((num, i) => {
+const twoSum = (nums, target) => {
+  for (i = 0; i < nums.length; i++) {
     for (j = 0; j < nums.length; j++) {
-      if (target - num === nums[j]) {
-        answer.push(i, j);
+      if (target - nums[i] === nums[j]) {
+        return [i, j];
       }
     }
-  });
-  return answer;
+  };
 };
+
 console.log(twoSum([2, 7, 11, 15], 9));
