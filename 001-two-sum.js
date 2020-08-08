@@ -16,15 +16,36 @@
  * @return {number[]}
  */
 
+//  // brute force (my solution)
+// const twoSum = (nums, target) => {
+//   debugger;
+//   for (i = 0; i < nums.length; i++) {
+//     for (j = 0; j < nums.length; j++) {
+//       if (i !== j) {
+//         if (target - nums[i] === nums[j]) {
+//           return [i, j];
+//         }
+//       }
+//     }
+//   };
+// };
+
+// two-pass hash table
 const twoSum = (nums, target) => {
-  debugger;
+  let hashTable = new Map();
+
+  nums.forEach((num, index) => {
+    hashTable.set(num, index);
+  });
+
   for (i = 0; i < nums.length; i++) {
-    for (j = 0; j < nums.length; j++) {
-      if (i !== j) {
-        if (target - nums[i] === nums[j]) {
-          return [i, j];
-        }
-      }
+    let key = target - nums[i];
+    let hasKey = hashTable.has(key);
+    let value = hashTable.get(key);
+    if (hasKey && i !== value) {
+      return [i, value];
     }
-  };
+  }
 };
+
+console.log(twoSum([3, 2, 3], 6));
