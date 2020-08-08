@@ -18,7 +18,6 @@
 
 //  // brute force (my solution)
 // const twoSum = (nums, target) => {
-//   debugger;
 //   for (i = 0; i < nums.length; i++) {
 //     for (j = 0; j < nums.length; j++) {
 //       if (i !== j) {
@@ -51,7 +50,6 @@
 // one-pass hash table
 const twoSum = (nums, target) => {
   let hashTable = new Map();
-  debugger;
   for (i = 0; i < nums.length; i++) {
     let num = nums[i];
     let complement = target - num;
