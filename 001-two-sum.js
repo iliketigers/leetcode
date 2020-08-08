@@ -30,21 +30,37 @@
 //   };
 // };
 
-// two-pass hash table
+// // two-pass hash table
+// const twoSum = (nums, target) => {
+//   let hashTable = new Map();
+
+//   nums.forEach((num, index) => {
+//     hashTable.set(num, index);
+//   });
+
+//   for (i = 0; i < nums.length; i++) {
+//     let complement = target - nums[i];
+//     let hasKey = hashTable.has(complement);
+//     let value = hashTable.get(complement);
+//     if (hasKey && i !== value) {
+//       return [i, value];
+//     }
+//   }
+// };
+
+// one-pass hash table
 const twoSum = (nums, target) => {
   let hashTable = new Map();
-
-  nums.forEach((num, index) => {
-    hashTable.set(num, index);
-  });
-
+  debugger;
   for (i = 0; i < nums.length; i++) {
-    let key = target - nums[i];
-    let hasKey = hashTable.has(key);
-    let value = hashTable.get(key);
-    if (hasKey && i !== value) {
-      return [i, value];
+    let num = nums[i];
+    let complement = target - num;
+    let hashedIndex = hashTable.get(complement);
+    let check = hashTable.has(complement) && hashedIndex !== i;
+    if (check) {
+      return [hashedIndex, i];
     }
+    hashTable.set(num, i);
   }
 };
 
