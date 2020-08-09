@@ -6,22 +6,15 @@
  * @return {number}
  */
 const romanToInt = (s) => {
-  const numeralValues = {
-    // IV: 4, IX: 9, XL: 40, XC: 90, CD: 400, CM: 900
-    'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000,
-  };
-
+  const numeralValues = { 'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000, };
   let result = 0;
-  console.log(s);
   s = s.split('').reverse().join('');
 
   for (i = 0; i < s.length; i++) {
     let chunk = false;
-    // debugger;
     console.log(s[i + 1] + s[i]);
     if (s[i + 1]) {
       if ((s[i + 1] + s[i]).match(/(IV|IX|XL|XC|CD|CM)/g)) {
-        // if (s[i] !== 'I' && s[i + 1].match(/(I|C|X)/g)) {
         result = result - numeralValues[s[i + 1]];
         result += numeralValues[s[i]];
         i++;
@@ -37,7 +30,7 @@ const romanToInt = (s) => {
   return result;
 };
 
-console.log(romanToInt("DCXXI")); // 621: 1 + 10 + 10 + 100 + 500
+// console.log(romanToInt("DCXXI")); // 621: 1 + 10 + 10 + 100 + 500
 // console.log(romanToInt('III')); // 3: 1+1+1
 // console.log(romanToInt('IX')); // 9: 10 - 1
 // console.log(romanToInt('LVIII')); // 58: 1 + 1 + 1 + 5 + 50
