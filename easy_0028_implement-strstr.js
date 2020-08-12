@@ -14,18 +14,16 @@ var strStr = function (haystack, needle) {
     return 0;
   }
   let left = 0;
-  let right = needle.length;
-  for (e of haystack) {
-    if (haystack.substring(left, right) === needle) {
+  for (_ of haystack) {
+    if (haystack.substring(left, left + needle.length) === needle) {
       return left;
     } else {
       left++;
-      right++;
     }
   }
   return -1;
 };
 
-const haystack = "";
-const needle = "aa";
+const haystack = "abc";
+const needle = "cde";
 console.log(strStr(haystack, needle));
