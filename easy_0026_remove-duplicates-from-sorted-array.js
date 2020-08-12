@@ -9,19 +9,21 @@
  * @return {number}
  */
 var removeDuplicates = function (nums) {
-  for (let i = 0; i < nums.length; i++) {
+  let i = 0;
+  while (i < nums.length) {
     if (nums[i] === nums[i + 1]) {
       nums.splice(i, 1);
       i--;
     }
+    i++;
   }
   return nums.length;
 };
 
 // Leetcode solution
-// Instead of splicing out, once it hits a unique number just overwrite the beginning of the array.
-var removeDuplicatesLeet = (nums) => {
-  if (nums.length === 0) return 0;
+// Instead of splicing out, once it hits a unique number just overwrite the beginning of the array with the unique number.
+const removeDuplicatesLeet = (nums) => {
+  if (nums.length === 0) { return 0; }
   let i = 0;
   for (let j = 1; j < nums.length; j++) {
     if (nums[j] != nums[i]) {
