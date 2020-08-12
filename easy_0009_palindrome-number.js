@@ -5,12 +5,11 @@
  * @param {number} x
  * @return {boolean}
  */
-
-// // solution 1: convert to string
-// var isPalindrome = function (x) {
-//   const reversed = x.toString().split('').reverse().join('');
-//   return x.toString() === reversed;
-// };
+// solution 1: convert to string
+var isPalindromeConvertToString = function (x) {
+  const reversed = x.toString().split('').reverse().join('');
+  return x.toString() === reversed;
+};
 
 // solution 2: don't convert the number
 const isPalindrome = (x) => {

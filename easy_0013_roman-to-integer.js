@@ -10,7 +10,7 @@ const romanToInt = (s) => {
   let result = 0;
   s = s.split('').reverse().join('');
 
-  for (i = 0; i < s.length; i++) {
+  for (let i = 0; i < s.length; i++) {
     let chunk = false;
     console.log(s[i + 1] + s[i]);
     if (s[i + 1]) {
