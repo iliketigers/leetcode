@@ -1,6 +1,6 @@
-// // https://leetcode.com/problems/longest-common-prefix/
-// // Write a function to find the longest common prefix string amongst an array of strings.
-// // If there is no common prefix, return an empty string "".
+// https://leetcode.com/problems/longest-common-prefix/
+// Write a function to find the longest common prefix string amongst an array of strings.
+// If there is no common prefix, return an empty string "".
 
 /**
  * @param {string[]} strs
@@ -8,7 +8,7 @@
  */
 var longestCommonPrefix = function (strs) {
   const firstWord = strs[0];
-  if (!firstWord) { return ''; } else {
+  if (!firstWord || strs === ['']) { return ''; } else {
     for (i = 0; i < firstWord.length; i++) { // loops only as long as the first word is long
       let firstWordChar = firstWord[i];
       for (j = 1; j < strs.length; j++) { // loops only as long as the number of words
