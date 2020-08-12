@@ -14,21 +14,21 @@ var isValid = function (s) {
   if (s[0] && !s[0].match(/(\(|\[|{)/g)) { return false; }
   else if (!s[0]) { return true; }
   else {
-    let open = '';
-    let closed = '';
-    const parens = {
+    let open = [];
+    let closed = [];
+    const brackets = {
       ')': '(',
       ']': '[',
       '}': '{',
     };
-    for (c of s) {
-      if (c.match(/(\(|\[|{)/g)) {
-        open += c;
+    for (char of s) {
+      if (char.match(/(\(|\[|{)/g)) {
+        open.push(char);
       } else {
-        if (open[open.length - 1] !== parens[c]) {
+        if (open[open.length - 1] !== brackets[char]) {
           return false;
         } else {
-          open = open.substring(0, open.length - 1);
+          open.pop();
         }
       }
     }

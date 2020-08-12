@@ -24,16 +24,16 @@ const twoSumBruteForce = (nums, target) => {
 
 // two-pass hash table
 const twoSumTwoPassHash = (nums, target) => {
-  let mapOfNumsAndTheirIndexes = new Map();
+  const mapOfNumsAndTheirIndexes = new Map();
 
   nums.forEach((num, index) => {
     mapOfNumsAndTheirIndexes.set(num, index);
   });
 
   for (let i = 0; i < nums.length; i++) {
-    let complement = target - nums[i];
-    let hasKey = mapOfNumsAndTheirIndexes.has(complement);
-    let value = mapOfNumsAndTheirIndexes.get(complement);
+    const complement = target - nums[i];
+    const hasKey = mapOfNumsAndTheirIndexes.has(complement);
+    const value = mapOfNumsAndTheirIndexes.get(complement);
     if (hasKey && i !== value) {
       return [i, value];
     }
