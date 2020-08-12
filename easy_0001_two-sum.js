@@ -1,4 +1,5 @@
-/** https://leetcode.com/problems/two-sum/
+/**
+ * https://leetcode.com/problems/two-sum/
  * Given an array of integers, return indices of the two numbers such that they add up to a specific target.
  * You may assume that each input would have exactly one solution, and you may not use the same element twice.
 */
@@ -8,9 +9,9 @@
  * @param {number} target
  * @return {number[]}
  */
- // brute force
+// brute force
 const twoSumBruteForce = (nums, target) => {
-  for (i = 0; i < nums.length; i++) {
+  for (let i = 0; i < nums.length; i++) {
     for (j = 0; j < nums.length; j++) {
       if (i !== j) {
         if (target - nums[i] === nums[j]) {
@@ -23,16 +24,16 @@ const twoSumBruteForce = (nums, target) => {
 
 // two-pass hash table
 const twoSumTwoPassHash = (nums, target) => {
-  let hashTable = new Map();
+  let mapOfNumsAndTheirIndexes = new Map();
 
   nums.forEach((num, index) => {
-    hashTable.set(num, index);
+    mapOfNumsAndTheirIndexes.set(num, index);
   });
 
-  for (i = 0; i < nums.length; i++) {
+  for (let i = 0; i < nums.length; i++) {
     let complement = target - nums[i];
-    let hasKey = hashTable.has(complement);
-    let value = hashTable.get(complement);
+    let hasKey = mapOfNumsAndTheirIndexes.has(complement);
+    let value = mapOfNumsAndTheirIndexes.get(complement);
     if (hasKey && i !== value) {
       return [i, value];
     }
@@ -41,16 +42,16 @@ const twoSumTwoPassHash = (nums, target) => {
 
 // one-pass hash table
 const twoSum = (nums, target) => {
-  let hashTable = new Map();
-  for (i = 0; i < nums.length; i++) {
+  let mapOfNumsAndTheirIndexes = new Map();
+  for (let i = 0; i < nums.length; i++) {
     let num = nums[i];
     let complement = target - num;
-    let hashedIndex = hashTable.get(complement);
-    let check = hashTable.has(complement) && hashedIndex !== i;
+    let hashedIndex = mapOfNumsAndTheirIndexes.get(complement);
+    let check = mapOfNumsAndTheirIndexes.has(complement) && hashedIndex !== i;
     if (check) {
       return [hashedIndex, i];
     }
-    hashTable.set(num, i);
+    mapOfNumsAndTheirIndexes.set(num, i);
   }
 };
 
