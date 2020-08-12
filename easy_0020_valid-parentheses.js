@@ -15,7 +15,6 @@ var isValid = function (s) {
   else if (!s[0]) { return true; }
   else {
     let open = [];
-    let closed = [];
     const brackets = {
       ')': '(',
       ']': '[',
@@ -32,7 +31,7 @@ var isValid = function (s) {
         }
       }
     }
-    if (open.length === closed.length) {
+    if (!open.length) {
       return true;
     } else {
       return false;
@@ -40,5 +39,6 @@ var isValid = function (s) {
   }
 };
 
-const testcase = "[";
+// const testcase = "[";
+const testcase = "{[]}";
 console.log(isValid(testcase));
