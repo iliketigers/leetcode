@@ -42,3 +42,22 @@ var isValid = function (s) {
 // const testcase = "[";
 const testcase = "{[]}";
 console.log(isValid(testcase));
+
+// Dad's 🐍
+// Used an object to match 
+function isValid(str) {
+  const brackets = { '(': ')', '{': '}', '[': ']' };
+  const brackets_close = { ')': '(', '}': '{', ']': '[' };
+  let open = [];
+  for (const char of str) {
+    if (char in brackets) {
+      open.push(brackets[char]);
+    } else if (char in brackets_close && open.pop() !== char) {
+      // pop() of empty array returns undefined, which is !==
+      // can avoid this convention (e.g., Python throws an exception) by:
+      // char in brackets_close && (open.length == 0 || open.pop() !== char)
+      return false;
+    }
+  }
+  return open.length === 0;
+}
