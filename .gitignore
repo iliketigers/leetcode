@@ -5,3 +5,4 @@ eslintrc.json
 .vscode/launch.json
 .vscode
 dev.js
+.ds_store
