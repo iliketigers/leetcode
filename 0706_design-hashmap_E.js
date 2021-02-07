@@ -3,84 +3,87 @@
 /**
  * Initialize your data structure here.
  */
-const MyHashMap = function () {
-  this.storage = [];
-};
-
-const hash = (value) => {
-  let index = 0;
-  for (let i = 0; i < value.toString().length; i++) {
-    index += value.toString().charCodeAt(i);
+class MyHashMap {
+  constructor() {
+    this.storage = [];
   }
-  return index % 10;
-};
 
-/**
- * value will always be non-negative.
- * @param {number} key
- * @param {number} value
- * @return {void}
- */
-MyHashMap.prototype.put = function (key, value) {
-  const index = hash(key);
-  var tuple = [key, value];
-  var bucket = this.storage[index];
-  let found = false;
-  if (bucket) {
-    for (let i = 0; i < bucket.length; i++) {
-      if (bucket[i][0] == key) {
-        bucket[i][1] = value;
-        found = true;
+  hash = (value) => {
+    let index = 0;
+    const valueStr = value.toString();
+    for (let i = 0; i < valueStr.length; i++) {
+      index += valueStr.charCodeAt(i);
+    }
+    return index % 10;
+  };
+
+  /**
+   * value will always be non-negative.
+   * @param {number} key
+   * @param {number} value
+   * @return {void}
+   */
+  put = (key, value) => {
+    const index = this.hash(key);
+    const tuple = [key, value];
+    const bucket = this.storage[index];
+    let found = false;
+    if (bucket) {
+      for (let i = 0; i < bucket.length; i++) {
+        if (bucket[i][0] == key) {
+          bucket[i][1] = value;
+          found = true;
+        }
+      }
+      if (!found) {
+        bucket.push(tuple);
+      }
+    } else {
+      this.storage[index] = [tuple];
+    }
+  };
+
+  /**
+   * Returns the value to which the specified key is mapped, or -1 if this map contains no mapping for the key
+   * @param {number} key
+   * @return {number}
+   */
+  get = (key) => {
+    const index = this.hash(key);
+    const exists = this.storage[index];
+    if (!exists) {
+      return -1;
+    }
+    if (exists) {
+      for (let i = 0; i < this.storage[index].length; i++) {
+        if (this.storage[index][i][0] == key) {
+          return this.storage[index][i][1];
+        }
+      }
+      return -1;
+    }
+  };
+
+  /**
+   * Removes the mapping of the specified value key if this map contains a mapping for the key
+   * @param {number} key
+   * @return {void}
+   */
+  remove = (key) => {
+    const index = this.hash(key);
+    const bucket = this.storage[index];
+
+    if (!bucket) {
+      return -1;
+    } else {
+      for (let i = 0; i < bucket.length; i++) {
+        if (bucket[i][0] == key) {
+          bucket.splice(i, 1);
+        }
       }
     }
-    if (!found) {
-      bucket.push(tuple);
-    }
-  } else {
-    this.storage[index] = [tuple];
-  }
-};
-
-/**
- * Returns the value to which the specified key is mapped, or -1 if this map contains no mapping for the key
- * @param {number} key
- * @return {number}
- */
-MyHashMap.prototype.get = function (key) {
-  const x = hash(key);
-  const exists = this.storage[x];
-  if (!exists) {
-    return -1;
-  }
-  if (exists) {
-    for (i = 0; i < this.storage[x].length; i++) {
-      if (this.storage[x][i][0] == key) {
-        return this.storage[x][i][1];
-      }
-    }
-    return -1;
-  }
-};
-
-/**
- * Removes the mapping of the specified value key if this map contains a mapping for the key
- * @param {number} key
- * @return {void}
- */
-MyHashMap.prototype.remove = function (key) {
-  const index = hash(key);
-  var bucket = this.storage[index];
-
-  if (!bucket) {
-    return -1;
-  } else {
-    for (let i = 0; i < bucket.length; i++) {
-      if (bucket[i][0] == key) {
-        bucket.splice(i, 1);
-      }
-    }
-  }
-};
+  };
+}
 
 /**
  * Your MyHashMap object will be instantiated and called as such:
