@@ -1,11 +1,19 @@
 // 14:01 -> 14:30
+// Design a HashMap without using any built-in hash table libraries.
 
-/**
- * Initialize your data structure here.
- */
+// To be specific, your design should include these functions:
+
+// put(key, value) : Insert a (key, value) pair into the HashMap. If the value already exists in the HashMap, update the value.
+// get(key): Returns the value to which the specified key is mapped, or -1 if this map contains no mapping for the key.
+// remove(key) : Remove the mapping for the value key if this map contains the mapping for the key.
+
 class MyHashMap {
+  numBuckets = 10;
   constructor() {
-    this.storage = [];
+    this.storage = Array(this.numBuckets);
+    for (let i = 0; i < this.storage.length; i++) {
+      this.storage[i] = [];
+    }
   }
 
   hash = (value) => {
@@ -14,7 +22,7 @@ class MyHashMap {
     for (let i = 0; i < valueStr.length; i++) {
       index += valueStr.charCodeAt(i);
     }
-    return index % 10;
+    return index % this.numBuckets;
   };
 
   /**
@@ -25,21 +33,12 @@ class MyHashMap {
    */
   put = (key, value) => {
     const index = this.hash(key);
-    const tuple = [key, value];
     const bucket = this.storage[index];
-    let found = false;
-    if (bucket) {
-      for (let i = 0; i < bucket.length; i++) {
-        if (bucket[i][0] == key) {
-          bucket[i][1] = value;
-          found = true;
-        }
-      }
-      if (!found) {
-        bucket.push(tuple);
-      }
+    const i = bucket.findIndex((e) => e[0] === key);
+    if (i >= 0) {
+      bucket[i] = [key, value];
     } else {
-      this.storage[index] = [tuple];
+      bucket.push([key, value]);
     }
   };
 
@@ -50,16 +49,11 @@ class MyHashMap {
    */
   get = (key) => {
     const index = this.hash(key);
-    const exists = this.storage[index];
-    if (!exists) {
-      return -1;
-    }
-    if (exists) {
-      for (let i = 0; i < this.storage[index].length; i++) {
-        if (this.storage[index][i][0] == key) {
-          return this.storage[index][i][1];
-        }
-      }
+    const bucket = this.storage[index];
+    const i = bucket.findIndex((e) => e[0] === key);
+    if (i >= 0) {
+      return bucket[i][1];
+    } else {
       return -1;
     }
   };
@@ -72,15 +66,9 @@ class MyHashMap {
   remove = (key) => {
     const index = this.hash(key);
     const bucket = this.storage[index];
-
-    if (!bucket) {
-      return -1;
-    } else {
-      for (let i = 0; i < bucket.length; i++) {
-        if (bucket[i][0] == key) {
-          bucket.splice(i, 1);
-        }
-      }
+    const i = bucket.findIndex((e) => e[0] === key);
+    if (i >= 0) {
+      bucket.splice(i, 1);
     }
   };
 }
