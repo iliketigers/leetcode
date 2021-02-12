@@ -7,7 +7,7 @@
 /**
  * @param {character[]} s
  * @return {void} Do not return anything, modify s in-place instead.
-*/
+ */
 var reverseString = function (s) {
   const helper = (left, right) => {
     if (left < right) {
@@ -23,6 +23,24 @@ var reverseString = function (s) {
   helper(0, s.length - 1);
 };
 
+// recursvie
+
+/**
+ * @param {character[]} s
+ * @return {void} Do not return anything, modify s in-place instead.
+ */
+const recursiveReverseString = (string) => {
+  swap = (start, end) => {
+    if (start >= end) {
+      return string;
+    }
+    [string[start], string[end]] = [string[end], string[start]];
+
+    return swap(start + 1, end - 1);
+  };
+
+  return swap(0, string.length - 1);
+};
+
 let testcase = ['h', 'e', 'l', 'l', 'o'];
-reverseString(testcase);
-console.log(testcase);
+console.log(recursiveReverseString(testcase));
